@@ -1,33 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from 'react';
+import Homepage from './pages/homepage';
+import Detail from './pages/detail';
+import { Provider } from "react-redux";
+import { Routes, Route } from "react-router-dom";
+import NoConectivity from './pages/NoConnectivity';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
+
+  // On initization set the isOnline state.
+  useEffect(()=>{
+    setIsOnline(navigator.onLine)
+  },[])
+
+  // event listeners to update the state 
+  window.addEventListener('online', () => {
+      setIsOnline(true)
+  });
+
+  window.addEventListener('offline', () => {
+      setIsOnline(false)
+  });
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {isOnline ?
+      <Routes>
+        <Route exact path="/" element={<Homepage />} />
+        <Route path="/question/:id" element={<Detail />} />
+      </ Routes>
+      :
+      <NoConectivity/>
+    }
+
     </>
   )
 }
