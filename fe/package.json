@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "cache": "yarn cache clean"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -18,6 +19,7 @@
     "axios": "^1.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-infinite-scroll-component": "^6.1.0",
     "react-redux": "^8.1.1",
     "react-router-dom": "^6.14.2",
     "styled-components": "^6.0.4"
